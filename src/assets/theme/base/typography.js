@@ -28,7 +28,7 @@ import pxToRem from "assets/theme/functions/pxToRem";
 const { dark } = colors;
 
 const baseProperties = {
-  fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+  fontFamily: '"DM Sans-Medium", Helvetica',
   fontWeightLight: 300,
   fontWeightRegular: 400,
   fontWeightMedium: 500,
@@ -120,7 +120,7 @@ const typography = {
 
   body2: {
     fontFamily: baseProperties.fontFamily,
-    fontSize: baseProperties.fontSizeMD,
+    fontSize: baseProperties.fontSizeLG,
     fontWeight: baseProperties.fontWeightRegular,
     lineHeight: 1.6,
   },

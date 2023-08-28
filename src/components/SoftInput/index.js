@@ -27,7 +27,21 @@ import SoftInputIconRoot from "components/SoftInput/SoftInputIconRoot";
 // Soft UI Dashboard PRO React contexts
 import { useSoftUIController } from "context";
 
-const SoftInput = forwardRef(({ size, icon, error, success, disabled, ...rest }, ref) => {
+// Wrapper around SoftInputIconBoxRoot to add onClick functionality
+const ClickableSoftInputIconBoxRoot = ({ onClick, ...props }) => {
+  return <SoftInputIconBoxRoot {...props} onClick={onClick} />;
+};
+
+ClickableSoftInputIconBoxRoot.defaultProps = {
+  onClick: null
+}
+
+ClickableSoftInputIconBoxRoot.propTypes = {
+  onClick: PropTypes.func
+}
+
+
+const SoftInput = forwardRef(({ onIconClick, size, icon, error, success, disabled, ...rest }, ref) => {
   let template;
   const [controller] = useSoftUIController();
   const { direction } = controller;
@@ -36,11 +50,16 @@ const SoftInput = forwardRef(({ size, icon, error, success, disabled, ...rest },
   if (icon.component && icon.direction === "left") {
     template = (
       <SoftInputWithIconRoot ref={ref} ownerState={{ error, success, disabled }}>
-        <SoftInputIconBoxRoot ownerState={{ size }}>
+        {/* <SoftInputIconBoxRoot ownerState={{ size }}>
           <SoftInputIconRoot fontSize="small" ownerState={{ size }}>
             {icon.component}
           </SoftInputIconRoot>
-        </SoftInputIconBoxRoot>
+        </SoftInputIconBoxRoot> */}
+        <ClickableSoftInputIconBoxRoot onClick={onIconClick} ownerState={{ size }}>
+          <SoftInputIconRoot fontSize="small" ownerState={{ size }}>
+            {icon.component}
+          </SoftInputIconRoot>
+        </ClickableSoftInputIconBoxRoot>
         <SoftInputRoot
           {...rest}
           ownerState={{ size, error, success, iconDirection, direction, disabled }}
@@ -54,11 +73,16 @@ const SoftInput = forwardRef(({ size, icon, error, success, disabled, ...rest },
           {...rest}
           ownerState={{ size, error, success, iconDirection, direction, disabled }}
         />
-        <SoftInputIconBoxRoot ownerState={{ size }}>
+        {/* <SoftInputIconBoxRoot ownerState={{ size }}>
           <SoftInputIconRoot fontSize="small" ownerState={{ size }}>
             {icon.component}
           </SoftInputIconRoot>
-        </SoftInputIconBoxRoot>
+        </SoftInputIconBoxRoot> */}
+        <ClickableSoftInputIconBoxRoot onClick={onIconClick} ownerState={{ size }}>
+          <SoftInputIconRoot fontSize="small" ownerState={{ size }}>
+            {icon.component}
+          </SoftInputIconRoot>
+        </ClickableSoftInputIconBoxRoot>
       </SoftInputWithIconRoot>
     );
   } else {
@@ -80,6 +104,7 @@ SoftInput.defaultProps = {
   error: false,
   success: false,
   disabled: false,
+  onIconClick: null, // Default click handler is null
 };
 
 // Typechecking props for the SoftInput
@@ -92,6 +117,7 @@ SoftInput.propTypes = {
   error: PropTypes.bool,
   success: PropTypes.bool,
   disabled: PropTypes.bool,
+  onIconClick: PropTypes.func, // Added type checking for click handler
 };
 
 export default SoftInput;

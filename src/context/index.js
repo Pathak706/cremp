@@ -18,10 +18,76 @@ Coded by www.creative-tim.com
   you can customize the states for the different components here.
 */
 
-import { createContext, useContext, useReducer, useMemo } from "react";
+import { createContext, useContext, useReducer, useMemo, useState, useEffect } from "react";
 
 // prop-types is a library for typechecking of props
 import PropTypes from "prop-types";
+import { useLocation, useNavigate } from "react-router-dom";
+
+// authentication context
+export const AuthContext = createContext({
+  isAuthenticated: false,
+  login: () => {},
+  register: () => {},
+  logout: () => {},
+});
+
+const AuthContextProvider = ({ children }) => {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) return setIsAuthenticated(false);
+
+    setIsAuthenticated(true);
+    navigate(location.pathname);
+  }, []);
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) return navigate("/authentication");
+
+    if (
+      location.pathname === "/" ||
+      location.pathname === "/authentication" ||
+      location.pathname === "/authentication/vednor/signup" ||
+      location.pathname === "/authentication/buyer/signup" ||
+      location.pathname === "/authentication/sign-in/illustration"
+    ) {
+      navigate("/dashboards/default");
+    } else {
+      navigate(location.pathname);
+    }
+  }, [isAuthenticated]);
+
+  const login = (response) => {
+    localStorage.setItem("token", response.access_token);
+    localStorage.setItem("refreshToken", response.refresh_token);
+    localStorage.setItem("userDetails", JSON.stringify(response.userDetails));
+    setIsAuthenticated(true);
+    navigate("/dashboards/default");
+  };
+
+  const logout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("refreshToken");
+    setIsAuthenticated(false);
+    navigate("/authentication/");
+  };
+
+  return (
+    <AuthContext.Provider value={{ isAuthenticated, login, logout }}>
+      {children}
+    </AuthContext.Provider>
+  );
+};
+
+AuthContextProvider.propTypes = {
+  children: PropTypes.node.isRequired,
+};
 
 // The Soft UI Dashboard PRO React main context
 const SoftUI = createContext(null);
@@ -109,6 +175,7 @@ const setDirection = (dispatch, value) => dispatch({ type: "DIRECTION", value })
 const setLayout = (dispatch, value) => dispatch({ type: "LAYOUT", value });
 
 export {
+  AuthContextProvider,
   SoftUIControllerProvider,
   useSoftUIController,
   setMiniSidenav,

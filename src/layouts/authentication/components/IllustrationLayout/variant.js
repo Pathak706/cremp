@@ -32,6 +32,8 @@ import pageRoutes from "page.routes";
 
 // Images
 import pattern from "assets/images/shapes/pattern-lines.svg";
+import KeyboardArrowLeft from "assets/images/icons/keyboard-arrow-left.svg";
+import { Link } from "react-router-dom";
 
 function IllustrationLayout({ color, header, title, description, illustration, children }) {
   return (
@@ -47,11 +49,31 @@ function IllustrationLayout({ color, header, title, description, illustration, c
       <Grid container>
         <Grid item xs={11} sm={8} md={6} lg={4} xl={3} sx={{ mx: "auto" }}>
           <SoftBox display="flex" flexDirection="column" justifyContent="center" height="100vh">
-            <SoftBox pt={3} px={3}>
+            <SoftBox mb={5}>
+              <SoftTypography
+                variant="button"
+                display="flex"
+                justifyContent="center"
+                alignItems="center"
+                sx={{ cursor: "pointer" }}
+                component={Link}
+                to="/authentication/"
+              >
+                <SoftBox
+                  component="img"
+                  src={KeyboardArrowLeft}
+                  alt="chat-illustration"
+                  width="100%"
+                  maxWidth="16px"
+                />
+                Back to Cremp
+              </SoftTypography>
+            </SoftBox>
+            <SoftBox pt={3} px={3} align="center">
               {!header ? (
                 <>
                   <SoftBox mb={1}>
-                    <SoftTypography variant="h4" fontWeight="bold">
+                    <SoftTypography variant="h3" fontWeight="bold">
                       {title}
                     </SoftTypography>
                   </SoftBox>
@@ -72,18 +94,18 @@ function IllustrationLayout({ color, header, title, description, illustration, c
             flexDirection="column"
             justifyContent="center"
             alignItems="center"
-            width="calc(100% - 2rem)"
-            height="calc(100vh - 2rem)"
+            // width="calc(100% - 2rem)"
+            // height="calc(100vh - 2rem)"
             position="relative"
-            borderRadius="lg"
+            // borderRadius="lg"
             textAlign="center"
             bgColor={color}
             variant="gradient"
-            m={2}
-            px={13}
+            // m={2}
+            // px={13}
             sx={{ overflow: "hidden" }}
           >
-            <SoftBox
+            {/* <SoftBox
               component="img"
               src={pattern}
               alt="pattern-lines"
@@ -115,6 +137,16 @@ function IllustrationLayout({ color, header, title, description, illustration, c
                   {illustration.description}
                 </SoftTypography>
               </SoftBox>
+            )}
+            */}
+            {illustration.image && (
+              <SoftBox
+                component="img"
+                src={illustration.image}
+                alt="chat-illustration"
+                width="100%"
+                // maxWidth="31.25rem"
+              />
             )}
           </SoftBox>
         </Grid>

@@ -37,6 +37,7 @@ Coded by www.creative-tim.com
 
 // Soft UI Dashboard PRO React layouts
 import Default from "layouts/dashboards/default";
+import DashboardVariant from "layouts/dashboards/default/variant";
 import Automotive from "layouts/dashboards/automotive";
 import SmartHome from "layouts/dashboards/smart-home";
 import VRDefault from "layouts/dashboards/virtual-reality/vr-default";
@@ -100,6 +101,10 @@ import Document from "examples/Icons/Document";
 import SpaceShip from "examples/Icons/SpaceShip";
 import CustomerSupport from "examples/Icons/CustomerSupport";
 import CreditCard from "examples/Icons/CreditCard";
+import GetStartedIllustration from "layouts/authentication/get-started/illustration";
+import BuyerIllustration from "layouts/authentication/get-started/buyer";
+import SellerIllustration from "layouts/authentication/get-started/seller";
+import ProjectDetailsVarient from "layouts/dashboards/default/projectDetails";
 
 const routes = [
   {
@@ -109,10 +114,22 @@ const routes = [
     icon: <Shop size="12px" />,
     collapse: [
       {
+        name: "Default Varient",
+        key: "default-varient",
+        route: "/dashboards/default-varient",
+        component: <Default />,
+      },
+      {
         name: "Default",
         key: "default",
         route: "/dashboards/default",
-        component: <Default />,
+        component: <DashboardVariant />,
+      },
+      {
+        name: "Project Details",
+        key: "project-details",
+        route: "/dashboards/project-details",
+        component: <ProjectDetailsVarient />,
       },
       {
         name: "Automotive",
@@ -385,6 +402,24 @@ const routes = [
     key: "authentication",
     icon: <Document size="12px" />,
     collapse: [
+      {
+        name: "Get Started",
+        key: "get-started",
+        route: "/authentication/",
+        component: <GetStartedIllustration />,
+      },
+      {
+        name: "Buyer Signup",
+        key: "buyer-signup",
+        route: "/authentication/buyer/signup",
+        component: <BuyerIllustration />,
+      },
+      {
+        name: "Vendor Signup",
+        key: "vendor-signup",
+        route: "/authentication/vednor/signup",
+        component: <SellerIllustration />,
+      },
       {
         name: "Sign In",
         key: "sign-in",

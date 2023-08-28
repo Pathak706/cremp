@@ -153,7 +153,7 @@ export default function App() {
         {layout === "vr" && <Configurator />}
         <Routes>
           {getRoutes(routes)}
-          <Route path="*" element={<Navigate to="/dashboards/default" />} />
+          <Route path="*" element={<Navigate to="/authentication/" />} />
         </Routes>
       </ThemeProvider>
     </CacheProvider>
@@ -162,14 +162,14 @@ export default function App() {
       <CssBaseline />
       {layout === "dashboard" && (
         <>
-          <Sidenav
+          {/* <Sidenav
             color={sidenavColor}
             brand={brand}
             brandName="Soft UI Dashboard PRO"
             routes={routes}
             onMouseEnter={handleOnMouseEnter}
             onMouseLeave={handleOnMouseLeave}
-          />
+          /> */}
           <Configurator />
           {configsButton}
         </>
@@ -177,7 +177,7 @@ export default function App() {
       {layout === "vr" && <Configurator />}
       <Routes>
         {getRoutes(routes)}
-        <Route path="*" element={<Navigate to="/dashboards/default" />} />
+        <Route path="*" element={<Navigate to="/authentication/" />} />
       </Routes>
     </ThemeProvider>
   );

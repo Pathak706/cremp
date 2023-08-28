@@ -32,6 +32,7 @@ import IllustrationLayout from "layouts/authentication/components/IllustrationLa
 
 // Images
 import rocket from "assets/images/illustrations/rocket-white.png";
+import getStarted from "assets/images/illustrations/get-started.png"
 
 function Illustration() {
   const [agreement, setAgreemnet] = useState(true);
@@ -43,7 +44,7 @@ function Illustration() {
       title="Sign Up"
       description="Enter your email and password to register"
       illustration={{
-        image: rocket,
+        image: getStarted,
         title: "Your journey starts here",
         description:
           "Just as it takes a company to sustain a product, it takes a community to sustain a protocol.",
